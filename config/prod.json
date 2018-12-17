@@ -1,0 +1,10 @@
+{
+    "version": "1.0.0",
+    "database": {
+        "mysql": {
+            "host": "checkme.c804n9loy6hp.us-east-1.rds.amazonaws.com",
+            "username": "checkme",
+            "password": "RCW4SPnUpfCrRa2Y"
+        }
+    }
+}

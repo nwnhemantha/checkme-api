@@ -1,0 +1,13 @@
+{
+    "version": "1.0.0",
+    "appname": "checkme-api",
+    "database": {
+        "mysql": {
+            "host": "localhost",
+            "username": "root",
+            "password": "root",
+            "database": "checkme",
+            "timezone": "+05:30"
+        }
+    }
+}
