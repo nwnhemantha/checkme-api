@@ -4,17 +4,11 @@ const CategoryController = {
 
     getCategories: async (req, res) => {
 
-        const post = await models.Category.findAll({
-            include: [
-                { model: models.Post}
-            ]
-        });
+        const Category = await models.Category.findAll({});
         
-        console.log('sasassas',models.Category.const);
-
         return res.status(200).json({
             status:"success",
-            data: post
+            data: Category
         })
     }
 }
