@@ -10,13 +10,20 @@ const PostController = {
             const { postDate } = req.body;
       
             const post = await models.Post.create(postDate);
-          
+            
             if(postDate.tags) {
-            postDate.tags.map( async (tag)=> {
+
+                postDate.tags.map( async (tag)=> {
+                    tag = tag.split(' ').join('-')
+                    await models.PostTag.create({ post_id:post.id, tag});
+                    
+                });
+
+                postDate.tags.map( async (tag)=> {
                     tag = tag.split(' ').join('-')
                     await models.Tag.create({tag});
                     
-                })
+                });
             }
 
             return res.status(200).json({
@@ -44,7 +51,7 @@ const PostController = {
                 where: {
                     status: models.Post.const.status.active
                 },
-                include:[{ model: models.User }, { model: models.Category }],
+                include:[{ model: models.User }, { model: models.Category }, { model: models.PostTag }],
                 order: [
                     ['id', 'DESC']  
                 ],
@@ -84,31 +91,50 @@ const PostController = {
 
         try {
             
-            let post = await models.Post.findAll({
+            const post = await models.Post.findAll({
                 where: {
-                    // status: models.Post.const.status.active,
-                    tags: {$like: `%${tag}%`}
+                    status: models.Post.const.status.active,
                 },
-                include:[{ model: models.User }, { model: models.Category }],
+                include: [ 
+                    {
+                        model: models.User
+                    },
+                    {
+                        model: models.Category
+                    },
+                    {
+                        model: models.PostTag,
+                        where: {
+                            tag:tag
+                        }
+                    }
+                ],
                 order: [
                     ['id', 'DESC']  
                 ],
                 offset: Number(offset),
                 limit: Number(limit),
             });
-
+            
             const postCount = await models.Post.count({
                 where: {
-                    status: models.Post.const.status.active  
-                }
+                    status: models.Post.const.status.active,
+                },
+                include: [ 
+                    {
+                        model: models.PostTag,
+                        where: {
+                            tag:tag
+                        }
+                    }
+                ]
             });
-            
 
             return res.status(200).json({
                 status:"success",
                 data: {
-                    post,
-                    postCount
+                    postCount,
+                    post
                 }
             })
 
@@ -134,7 +160,7 @@ const PostController = {
                     status: models.Post.const.status.active,
                     category_id
                 },
-                include:[{ model: models.User }, { model: models.Category }],
+                include:[{ model: models.User }, { model: models.Category }, { model: models.Category }],
                 order: [
                     ['id', 'DESC']  
                 ],
@@ -179,7 +205,7 @@ const PostController = {
                     id: Number(id),
                     status: models.Post.const.status.active
                 },
-                include: [{ model: models.User }],
+                include: [{ model: models.User },  { model: models.Category }, { model: models.PostTag }],
             });
 
             const comments = await models.Comment.findAll({

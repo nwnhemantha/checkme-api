@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     title: DataTypes.STRING,
     details: DataTypes.TEXT,
-    tags: DataTypes.JSON,
+    user_id: DataTypes.INTEGER,
+    category_id: DataTypes.INTEGER,
     status: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 1
@@ -19,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     Post.hasMany(models.Comment);
     Post.hasMany(models.Like);
     Post.hasMany(models.Share);
+    Post.hasMany(models.PostTag);
   };
 
   Post.const = {
