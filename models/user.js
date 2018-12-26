@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     phone: DataTypes.STRING,
     token: DataTypes.STRING,
+    picture: DataTypes.STRING,
     user_type: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0

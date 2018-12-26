@@ -7,19 +7,19 @@ const PostController = {
     createPost: async (req, res) => {
         
         try {
-            const { postDate } = req.body;
+            const { postData } = req.body;
       
-            const post = await models.Post.create(postDate);
+            const post = await models.Post.create(postData);
             
-            if(postDate.tags) {
+            if(postData.tags) {
 
-                postDate.tags.map( async (tag)=> {
+                postData.tags.map( async (tag)=> {
                     tag = tag.split(' ').join('-')
                     await models.PostTag.create({ post_id:post.id, tag});
                     
                 });
 
-                postDate.tags.map( async (tag)=> {
+                postData.tags.map( async (tag)=> {
                     tag = tag.split(' ').join('-')
                     await models.Tag.create({tag});
                     

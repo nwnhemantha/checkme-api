@@ -6,7 +6,7 @@ const UserController = {
         
         try {
             const userData = req.body.userData;
-            
+
             if(userData.login_type != models.User.const.login_type.anonymous) {
                 const isExist = await models.User.findOne({
                     where: {
