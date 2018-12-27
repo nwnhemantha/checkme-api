@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const CategoryController = require('../controlers/categoryController');
+const TagController = require('../controlers/tagController');
 const UserController = require('../controlers/userController');
 const PostController = require('../controlers/postController');
 const ReactionController = require('../controlers/ReactionController');
@@ -11,6 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/categories', CategoryController.getCategories);
+router.get('/tags', TagController.getTags);
 router.post('/sign-in', UserController.signIn);
 
 router.post('/post', PostController.createPost);
