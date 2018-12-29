@@ -152,7 +152,7 @@ const PostController = {
         const limit = req.params.limit || 20;
         const offset = req.params.offset || 0;
         const category_id = req.params.category_id
-
+        
         try {
             
             let post = await models.Post.findAll({
@@ -160,7 +160,7 @@ const PostController = {
                     status: models.Post.const.status.active,
                     category_id
                 },
-                include:[{ model: models.User }, { model: models.Category }, { model: models.Category }],
+                include:[{ model: models.User }, { model: models.Category }, { model: models.PostTag }],
                 order: [
                     ['id', 'DESC']  
                 ],
