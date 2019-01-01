@@ -51,7 +51,7 @@ const PostController = {
                 where: {
                     status: models.Post.const.status.active
                 },
-                include:[{ model: models.User }, { model: models.Category }, { model: models.PostTag }],
+                include:[{ model: models.User }, { model: models.Comment }, { model: models.Category }, { model: models.PostTag }],
                 order: [
                     ['id', 'DESC']  
                 ],
@@ -101,6 +101,9 @@ const PostController = {
                     },
                     {
                         model: models.Category
+                    },
+                    { 
+                        model: models.Comment 
                     },
                     {
                         model: models.PostTag,
@@ -160,7 +163,7 @@ const PostController = {
                     status: models.Post.const.status.active,
                     category_id
                 },
-                include:[{ model: models.User }, { model: models.Category }, { model: models.PostTag }],
+                include:[{ model: models.User }, { model: models.Comment }, { model: models.Category }, { model: models.PostTag }],
                 order: [
                     ['id', 'DESC']  
                 ],
@@ -196,7 +199,7 @@ const PostController = {
 
     getPost: async (req, res) => {
 
-        const id = req.params.id || 2;
+        const id = req.params.id;
 
         try {
             
